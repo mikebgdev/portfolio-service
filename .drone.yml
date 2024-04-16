@@ -112,7 +112,8 @@ steps:
 
 
     -   name: phploc
-        group: quality-tools        image: php:8.2
+        group: quality-tools
+        image: php:8.2
         commands:
             - cd ./$PROJECT_NAME
             - curl -L https://phar.phpunit.de/phploc.phar -o phploc
