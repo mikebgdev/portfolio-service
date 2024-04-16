@@ -222,9 +222,9 @@ steps:
             script:
                 - |
                     if [ ! -d "/var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}/.git" ]; then
-                      git clone https://$GITHUB_TOKEN@github.com/$DRONE_REPO /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
+                      git clone https://$GITHUB_TOKEN@github.com/$DRONE_REPO /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO} || { echo "Failed to clone repository"; exit 1; }
                     fi
-                - cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
-                - git fetch
-                - git checkout $DRONE_COMMIT
-                - CACHEBUST=$(date +%s) docker compose -f docker-compose.dev.yml up -d --build
+                    cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO} || { echo "Failed to change directory"; exit 1; }
+                    git fetch || { echo "Failed to fetch changes"; exit 1; }
+                    git checkout $DRONE_COMMIT || { echo "Failed to checkout commit"; exit 1; }
+                    CACHEBUST=$(date +%s) docker-compose -f docker-compose.dev.yml up -d --build || { echo "Failed to run Docker Compose"; exit 1; }
