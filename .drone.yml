@@ -179,10 +179,42 @@ trigger:
     event:
         - promote
 
-clone:
-    disable: true
-
 steps:
+    -   name: check_target_directory
+        image: appleboy/drone-ssh
+        settings:
+            host:
+                from_secret: docker_host
+            username:
+                from_secret: username_ssh
+            password:
+                from_secret: password_ssh
+            script:
+                - |
+                    if [ ! -d "/var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}" ]; then
+                      exit 0
+                    else
+                      exit 1
+                    fi
+
+    -   name: scp_files
+        image: appleboy/drone-scp
+        settings:
+            host:
+                from_secret: docker_host
+            username:
+                from_secret: username_ssh
+            password:
+                from_secret: password_ssh
+            port: 22
+            target: /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
+            source: .
+        when:
+            status:
+                - success
+            target:
+                - check_target_directory
+
     -   name: production
         image: appleboy/drone-ssh
         when:
@@ -198,14 +230,10 @@ steps:
             port: 22
             command_timeout: 2m
             script:
-                - |
-                    if [ ! -d "/var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}/.git" ]; then
-                      git clone https://$GITHUB_TOKEN@github.com/$DRONE_REPO /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
-                    fi
                 - cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
                 - git fetch
-                - git checkout $DRONE_COMMIT
-                - CACHEBUST=$(date +%s) docker compose up -d --build
+                - git checkout ${DRONE_BRANCH}
+                - CACHEBUST=$(date +%s) docker-compose up -d --build
 
     -   name: deployment
         image: appleboy/drone-ssh
@@ -220,11 +248,7 @@ steps:
             password:
                 from_secret: password_ssh
             script:
-                - |
-                    if [ ! -d "/var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}/.git" ]; then
-                      git clone https://$GITHUB_TOKEN@github.com/$DRONE_REPO /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO} || { echo "Failed to clone repository"; exit 1; }
-                    fi
-                    cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO} || { echo "Failed to change directory"; exit 1; }
-                    git fetch || { echo "Failed to fetch changes"; exit 1; }
-                    git checkout $DRONE_COMMIT || { echo "Failed to checkout commit"; exit 1; }
-                    CACHEBUST=$(date +%s) docker-compose -f docker-compose.dev.yml up -d --build || { echo "Failed to run Docker Compose"; exit 1; }
+                - cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
+                - git fetch
+                - git checkout ${DRONE_BRANCH}
+                - CACHEBUST=$(date +%s) docker compose -f docker-compose.dev.yml up -d --build

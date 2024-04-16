@@ -21,7 +21,8 @@ class LoginController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
-            '@EasyAdmin/page/login.html.twig', [
+            '@EasyAdmin/page/login.html.twig',
+            [
                 'last_username' => $lastUsername,
                 'error' => $error,
                 'favicon_path' => '/icon-dev-logo.png',
