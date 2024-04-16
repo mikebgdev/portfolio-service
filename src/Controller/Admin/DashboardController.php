@@ -11,7 +11,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\AboutMe;
+use App\Entity\Categories;
 use App\Entity\Education;
+use App\Entity\InterpersonalSkills;
+use App\Entity\TechnicalSkills;
 use App\Entity\WorkExperience;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -37,8 +40,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('Configuration');
         yield MenuItem::linkToCrud('AboutMe', 'fas fa-user', AboutMe::class);
-        yield MenuItem::linkToCrud('Technical Skills', 'fas fa-code', AboutMe::class);
-        yield MenuItem::linkToCrud('Interpersonal Skills', 'fas fa-handshake', AboutMe::class);
+        yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categories::class);
+        yield MenuItem::linkToCrud('Technical Skills', 'fas fa-code', TechnicalSkills::class);
+        yield MenuItem::linkToCrud('Interpersonal Skills', 'fas fa-handshake', InterpersonalSkills::class);
         yield MenuItem::linkToCrud('Projects', 'fas fa-table', AboutMe::class);
         yield MenuItem::linkToCrud('Work Experience', 'fas fa-briefcase', WorkExperience::class);
         yield MenuItem::linkToCrud('Education', 'fas fa-school', Education::class);
