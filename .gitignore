@@ -3,6 +3,7 @@
 
 ## PhpUnit Coverage
 /build
+.phpunit.cache
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -22,6 +23,7 @@
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
+/public/uploads/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
@@ -30,3 +32,10 @@ yarn-error.log
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+/migrations
