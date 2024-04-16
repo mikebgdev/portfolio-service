@@ -1,16 +1,18 @@
 <?php
+/*
+ * This class is part of a software application developed by Michael Ballester Granero.
+ *
+ * The application is distributed under the terms of the MIT License.
+ * For more information, please see the LICENSE file included in the source code.
+ */
 
 namespace App\Controller\Admin;
 
-use App\Entity\Categories;
 use App\Entity\TechnicalSkills;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class TechnicalSkillsCrudController extends AbstractCrudController
@@ -29,7 +31,6 @@ class TechnicalSkillsCrudController extends AbstractCrudController
             ->renderContentMaximized();
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('title')
@@ -39,5 +40,4 @@ class TechnicalSkillsCrudController extends AbstractCrudController
         yield CodeEditorField::new('svg')
             ->setLabel('SVG');
     }
-
 }

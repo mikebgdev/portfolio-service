@@ -18,6 +18,9 @@ if [ -f composer.json ]; then
 	npm install
 	npm run build
 	php bin/console cache:clear --env=prod
+
+	php bin/console make:migration
+	php bin/console doctrine:migrations:migrate
 fi
 
 exec docker-php-entrypoint "$@"

@@ -25,7 +25,9 @@ class Categories implements TranslatableInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    /** @var Collection<int, TechnicalSkills> */
+    /**
+ * @var Collection<int, TechnicalSkills> 
+*/
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: TechnicalSkills::class)]
     private Collection $technicalSkills;
 
