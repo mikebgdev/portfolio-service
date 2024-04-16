@@ -20,14 +20,12 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class Categories implements TranslatableInterface
 {
     use TranslatableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
- * @var Collection<int, TechnicalSkills> 
-*/
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: TechnicalSkills::class)]
     private Collection $technicalSkills;
 
