@@ -32,7 +32,9 @@ class TranslationsTypeExtension extends AbstractTypeExtension
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        /** @var FieldCollection $fields */
+        /**
+         * @var FieldCollection $fields
+         */
         $fields = $options['ea_fields'];
 
         foreach ($view->children as $translationView) {

@@ -38,7 +38,9 @@ class TranslationsConfigurator implements FieldConfiguratorInterface
         );
 
         foreach ($fieldsCollection as $dto) {
-            /** @var FieldDto $dto */
+            /**
+             * @var FieldDto $dto
+             */
 
             // run field configurator manually as translatable fields are not returned/yielded from configureFields()
             foreach ($this->fieldConfigurators as $configurator) {
@@ -60,12 +62,14 @@ class TranslationsConfigurator implements FieldConfiguratorInterface
             $formTypeOptionsFields[$dto->getProperty()] = $dto->getFormTypeOptions();
         }
 
-        $field->setFormTypeOptions([
-            'ea_fields' => $fieldsCollection,
-            'fields' => $formTypeOptionsFields,
-            'constraints' => [
-                new Valid(),
-            ],
-        ]);
+        $field->setFormTypeOptions(
+            [
+                'ea_fields' => $fieldsCollection,
+                'fields' => $formTypeOptionsFields,
+                'constraints' => [
+                    new Valid(),
+                ],
+            ]
+        );
     }
 }

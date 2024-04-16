@@ -20,14 +20,16 @@ class LoginController extends AbstractController
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('@EasyAdmin/page/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-            'favicon_path' => '/icon-dev-logo.png',
-            'page_title' => 'Login',
-            'csrf_token_intention' => 'authenticate',
-            'target_path' => $this->generateUrl('dashboard'),
-            'sign_in_label' => 'Log in',
-        ]);
+        return $this->render(
+            '@EasyAdmin/page/login.html.twig', [
+                'last_username' => $lastUsername,
+                'error' => $error,
+                'favicon_path' => '/icon-dev-logo.png',
+                'page_title' => 'Login',
+                'csrf_token_intention' => 'authenticate',
+                'target_path' => $this->generateUrl('dashboard'),
+                'sign_in_label' => 'Log in',
+            ]
+        );
     }
 }
