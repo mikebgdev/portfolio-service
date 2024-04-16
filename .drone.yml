@@ -90,7 +90,7 @@ steps:
             - apt-get update && apt-get install -y git
             - git clone https://github.com/PHPCSStandards/PHP_CodeSniffer.git /phpcs
             - ln -s /phpcs/bin/phpcs /usr/local/bin/phpcs
-            - phpcs -wvp --standard=PSR2 ./src
+            - phpcs -nvp --standard=PSR2 ./src
         depends_on:
             - unit-tests
 
@@ -112,8 +112,7 @@ steps:
 
 
     -   name: phploc
-        group: quality-tools
-        image: php:8.2
+        group: quality-tools        image: php:8.2
         commands:
             - cd ./$PROJECT_NAME
             - curl -L https://phar.phpunit.de/phploc.phar -o phploc
@@ -198,6 +197,7 @@ steps:
                 - cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
                 - git fetch
                 - git checkout ${DRONE_BRANCH}
+                - git pull
                 - CACHEBUST=$(date +%s) docker-compose up -d --build
 
     -   name: deployment
@@ -216,4 +216,5 @@ steps:
                 - cd /var/www/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}
                 - git fetch
                 - git checkout ${DRONE_BRANCH}
+                - git pull
                 - CACHEBUST=$(date +%s) docker compose -f docker-compose.dev.yml up -d --build
