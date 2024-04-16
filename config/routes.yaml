@@ -1,0 +1,3 @@
+api_content:
+    path: /api/content
+    controller: App\Controller\ApiController::getContent

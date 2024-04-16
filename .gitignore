@@ -38,4 +38,3 @@ yarn-error.log
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-/migrations

@@ -15,9 +15,6 @@ if [ -f composer.json ]; then
 	chmod -R 775 public
 	chmod -R 775 var/cache/
 
-	php bin/console cache:clear --env=prod
-
-	php bin/console make:migration
 	php bin/console doctrine:migrations:migrate
 fi
 

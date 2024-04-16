@@ -19,6 +19,7 @@ RUN set -eux; \
 		intl \
 		opcache \
 		zip \
+    pdo_mysql \
     ;
 
 RUN apk update && \

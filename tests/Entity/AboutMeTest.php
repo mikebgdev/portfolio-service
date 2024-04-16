@@ -6,7 +6,7 @@
  * For more information, please see the LICENSE file included in the source code.
  */
 
-namespace App\Tests;
+namespace App\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 
