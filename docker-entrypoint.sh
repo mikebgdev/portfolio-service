@@ -15,8 +15,6 @@ if [ -f composer.json ]; then
 	chmod -R 775 public
 	chmod -R 775 var/cache/
 
-	npm install
-	npm run build
 	php bin/console cache:clear --env=prod
 
 	php bin/console make:migration
