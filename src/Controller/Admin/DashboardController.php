@@ -14,6 +14,7 @@ use App\Entity\AboutMe;
 use App\Entity\Categories;
 use App\Entity\Education;
 use App\Entity\InterpersonalSkills;
+use App\Entity\SocialNetworks;
 use App\Entity\TechnicalSkills;
 use App\Entity\WorkExperience;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -46,7 +47,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Projects', 'fas fa-table', AboutMe::class);
         yield MenuItem::linkToCrud('Work Experience', 'fas fa-briefcase', WorkExperience::class);
         yield MenuItem::linkToCrud('Education', 'fas fa-school', Education::class);
+        yield MenuItem::linkToCrud('Social Networks', 'fas fa-link', SocialNetworks::class);
         yield MenuItem::section('Links');
-        yield MenuItem::linkToUrl('Web', 'fas fa-link', 'https://www.mikebgdev.com');
+        yield MenuItem::linkToUrl('Web', 'fas fa-globe', 'https://www.mikebgdev.com');
     }
 }
