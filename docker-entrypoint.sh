@@ -15,7 +15,7 @@ if [ -f composer.json ]; then
 	chmod -R 777 public
 	chmod -R 777 var/cache/
 
-	php bin/console doctrine:migrations:migrate
+	php bin/console --no-interaction doctrine:migrations:migrate
 fi
 
 exec docker-php-entrypoint "$@"
