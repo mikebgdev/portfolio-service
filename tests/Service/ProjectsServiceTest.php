@@ -10,18 +10,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Service;
 
-use App\Entity\Categories;
-use App\Entity\CategoriesTranslation;
+use App\Entity\Projects;
+use App\Entity\ProjectsTranslation;
 use App\Entity\TechnicalSkills;
-use App\Service\TechnicalSkillsService;
+use App\Service\ProjectsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 
-#[covers(TechnicalSkillsService::class)]
-final class TechnicalSkillsServiceTest extends TestCase
+#[covers(ProjectsService::class)]
+final class ProjectsServiceTest extends TestCase
 {
-    public function testBuildTechnicalSkillsWithNoResults(): void
+    public function testBuildProjectsWithNoResults(): void
     {
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $repository = $this->createMock(ObjectRepository::class);
@@ -34,50 +34,56 @@ final class TechnicalSkillsServiceTest extends TestCase
             ->method('getRepository')
             ->willReturn($repository);
 
-        $technicalSkillsService = new TechnicalSkillsService($entityManager);
+        $projectService = new ProjectsService($entityManager);
 
-        $result = $technicalSkillsService->buildTechnicalSkills();
+        $result = $projectService->buildProjects();
 
         self::assertNull($result);
     }
 
-    public function testBuildTechnicalSkillsWithResults(): void
+    public function testBuildProjectsWithResults(): void
     {
-        $category1 = new Categories();
-        $category2 = new Categories();
+        $project1 = new Projects();
+        $project2 = new Projects();
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $repository = $this->createMock(ObjectRepository::class);
 
         $repository->expects(self::once())
             ->method('findAll')
-            ->willReturn([$category1, $category2]);
+            ->willReturn([$project1, $project2]);
 
         $entityManager->expects(self::once())
             ->method('getRepository')
             ->willReturn($repository);
 
-        $technicalSkillsService = new TechnicalSkillsService($entityManager);
+        $projectService = new ProjectsService($entityManager);
 
-        $result = $technicalSkillsService->buildTechnicalSkills();
+        $result = $projectService->buildProjects();
 
         self::assertCount(2, $result);
     }
 
-    public function testMapCategories(): void
+    public function testMapProjects(): void
     {
-        $category = new Categories();
-        $category->addTranslation($this->createTranslation('Category Title 1', 'en'));
-        $category->addTechnicalSkill($this->createTechnicalSkill('Skill Title 1', 'skill1.svg'));
-        $category->addTechnicalSkill($this->createTechnicalSkill('Skill Title 2', 'skill2.svg'));
+        $project1 = new Projects();
+        $project1->setTitle('Portfolio');
+        $project1->setUrlDemo('https://github.com/mikebgdev/Portfolio-Symfony');
+        $project1->setUrlGit('https://github.com/mikebgdev/Portfolio-Symfony');
+        $project1->addTranslation($this->createTranslation('Project Description 1', 'en'));
+        $project1->addTechnicalSkill($this->createTechnicalSkill('Skill Title 1', 'skill1.svg'));
+        $project1->addTechnicalSkill($this->createTechnicalSkill('Skill Title 2', 'skill2.svg'));
 
-        $service = new TechnicalSkillsService($this->createEntityManagerMock([$category]));
+        $service = new ProjectsService($this->createEntityManagerMock([$project1]));
 
-        $result = $service->mapCategories($category);
+        $result = $service->mapProjects($project1);
 
         $expectedResult = [
+            'title' => 'Portfolio',
+            'urlDemo' => 'https://github.com/mikebgdev/Portfolio-Symfony',
+            'urlGit' => 'https://github.com/mikebgdev/Portfolio-Symfony',
             'translations' => [
-                'en' => ['title' => 'Category Title 1'],
+                'en' => ['description' => 'Project Description 1'],
             ],
             'technicalSkills' => [
                 ['title' => 'Skill Title 1', 'svg' => 'skill1.svg'],
@@ -93,37 +99,21 @@ final class TechnicalSkillsServiceTest extends TestCase
         $translation1 = $this->createTranslation('Translation 1', 'en');
         $translation2 = $this->createTranslation('Translation 2', 'es');
 
-        $service = new TechnicalSkillsService($this->createEntityManagerMock([$translation1, $translation2]));
+        $service = new ProjectsService($this->createEntityManagerMock([$translation1, $translation2]));
         $mappedTranslations = $service->mapTranslations([$translation1, $translation2]);
 
         $expectedResult = [
-            ['title' => 'Translation 1'],
-            ['title' => 'Translation 2'],
+            ['description' => 'Translation 1'],
+            ['description' => 'Translation 2'],
         ];
 
         self::assertEquals($expectedResult, $mappedTranslations);
     }
 
-    public function testMapTechnicalSkills(): void
+    private function createTranslation(string $description, string $locale): ProjectsTranslation
     {
-        $technicalSkill1 = $this->createTechnicalSkill('Skill Title 1', 'skill1.svg');
-        $technicalSkill2 = $this->createTechnicalSkill('Skill Title 2', 'skill2.svg');
-
-        $service = new TechnicalSkillsService($this->createEntityManagerMock([$technicalSkill1, $technicalSkill2]));
-        $mappedTechnicalSkills = $service->mapTechnicalSkills([$technicalSkill1, $technicalSkill2]);
-
-        $expectedResult = [
-            ['title' => 'Skill Title 1', 'svg' => 'skill1.svg'],
-            ['title' => 'Skill Title 2', 'svg' => 'skill2.svg'],
-        ];
-
-        self::assertEquals($expectedResult, $mappedTechnicalSkills);
-    }
-
-    private function createTranslation(string $title, string $locale): CategoriesTranslation
-    {
-        $translation = new CategoriesTranslation();
-        $translation->setTitle($title);
+        $translation = new ProjectsTranslation();
+        $translation->setDescription($description);
         $translation->setLocale($locale);
 
         return $translation;

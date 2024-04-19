@@ -9,7 +9,9 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Categories;
+use App\Entity\Projects;
 use App\Entity\TechnicalSkills;
+use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
 #[covers(TechnicalSkills::class)]
@@ -17,11 +19,11 @@ final class TechnicalSkillsTest extends TestCase
 {
     public function testPropertiesAreNullable()
     {
-        $socialNetwork = new TechnicalSkills();
+        $technicalSkill = new TechnicalSkills();
 
-        self::assertNull($socialNetwork->getId());
-        self::assertNull($socialNetwork->getTitle());
-        self::assertNull($socialNetwork->getSvg());
+        self::assertNull($technicalSkill->getId());
+        self::assertNull($technicalSkill->getTitle());
+        self::assertNull($technicalSkill->getSvg());
     }
 
     public function testGetSetTitle()
@@ -50,5 +52,73 @@ final class TechnicalSkillsTest extends TestCase
         $technicalSkill->setCategory($category);
 
         self::assertEquals($category, $technicalSkill->getCategory());
+    }
+
+    public function testGetProjectsReturnsCollection(): void
+    {
+        $technicalSkill = new TechnicalSkills();
+        $projects = $technicalSkill->getProjects();
+
+        self::assertInstanceOf(Collection::class, $projects);
+        self::assertCount(0, $projects);
+    }
+
+    public function testAddProject(): void
+    {
+        $technicalSkill = new TechnicalSkills();
+        $project = new Projects();
+
+        $technicalSkill->addProject($project);
+        $projects = $technicalSkill->getProjects();
+
+        self::assertCount(1, $projects);
+        self::assertTrue($projects->contains($project));
+    }
+
+    public function testAddProjectTwice(): void
+    {
+        $technicalSkill = new TechnicalSkills();
+        $project = new Projects();
+
+        $technicalSkill->addProject($project);
+        $technicalSkill->addProject($project);
+
+        $projects = $technicalSkill->getProjects();
+
+        self::assertCount(1, $projects);
+    }
+
+    public function testRemoveProject(): void
+    {
+        $technicalSkill = new TechnicalSkills();
+        $project = new Projects();
+
+        $technicalSkill->addProject($project);
+        $technicalSkill->removeProject($project);
+
+        $projects = $technicalSkill->getProjects();
+
+        self::assertCount(0, $projects);
+        self::assertFalse($projects->contains($project));
+    }
+
+    public function testRemoveNonExistingProject(): void
+    {
+        $technicalSkill = new TechnicalSkills();
+        $project = new Projects();
+
+        $technicalSkill->removeProject($project);
+
+        $projects = $technicalSkill->getProjects();
+
+        self::assertCount(0, $projects);
+    }
+
+    public function testToString()
+    {
+        $technicalSkill = new TechnicalSkills();
+        $technicalSkill->setTitle('Skill');
+
+        self::assertEquals('Skill', $technicalSkill->__toString());
     }
 }

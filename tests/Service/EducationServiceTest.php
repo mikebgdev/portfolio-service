@@ -83,7 +83,7 @@ final class EducationServiceTest extends TestCase
         $translation2 = new EducationTranslation();
         $translation2->setTitle('Master of Arts');
         $translation2->setEducationalCenter('University B');
-        $translation2->setLocale('en');
+        $translation2->setLocale('es');
         $education->addTranslation($translation2);
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
@@ -107,6 +107,10 @@ final class EducationServiceTest extends TestCase
                 'endDate' => null,
                 'translations' => [
                     'en' => [
+                        'title' => 'Bachelor of Science',
+                        'educationalCenter' => 'University A',
+                    ],
+                    'es' => [
                         'title' => 'Master of Arts',
                         'educationalCenter' => 'University B',
                     ],
@@ -130,7 +134,7 @@ final class EducationServiceTest extends TestCase
 
         $translation2 = new EducationTranslation();
         $translation2->setTitle('Master of Arts');
-        $translation2->setLocale('en');
+        $translation2->setLocale('es');
         $translation2->setEducationalCenter('University B');
 
         $translations = new ArrayCollection([$translation1, $translation2]);
@@ -146,6 +150,10 @@ final class EducationServiceTest extends TestCase
             'endDate' => new \DateTime('2022-12-31'),
             'translations' => [
                 'en' => [
+                    'title' => 'Bachelor of Science',
+                    'educationalCenter' => 'University A',
+                ],
+                'es' => [
                     'title' => 'Master of Arts',
                     'educationalCenter' => 'University B',
                 ],

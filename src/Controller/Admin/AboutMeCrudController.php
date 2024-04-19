@@ -23,7 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class AboutMeCrudController extends AbstractCrudController
+final class AboutMeCrudController extends AbstractCrudController
 {
     private ParameterBagInterface $params;
 

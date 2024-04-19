@@ -120,7 +120,6 @@ final class AboutMeServiceTest extends TestCase
         $aboutMeService = new AboutMeService($entityManager, $parameterBag);
         $mappedTranslations = $aboutMeService->mapTranslations([$translation1, $translation2]);
 
-        // Verifica si el resultado es como se esperaba
         $expectedResult = [
             0 => [
                 'nationality' => 'Spanish',

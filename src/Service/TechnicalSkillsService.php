@@ -14,7 +14,7 @@ use App\Entity\Categories;
 use App\Entity\CategoriesTranslation;
 use Doctrine\ORM\EntityManagerInterface;
 
-class TechnicalSkillsService
+final class TechnicalSkillsService
 {
     private EntityManagerInterface $manager;
 
@@ -43,7 +43,7 @@ class TechnicalSkillsService
         return $categoriesArr;
     }
 
-    private function mapCategories(Categories $category): array
+    public function mapCategories(Categories $category): array
     {
         $translations = $this->mapTranslations($category->getTranslations());
         $technicalSkills = $this->mapTechnicalSkills($category->getTechnicalSkills());
@@ -54,7 +54,7 @@ class TechnicalSkillsService
         ];
     }
 
-    private function mapTranslations($translations): array
+    public function mapTranslations($translations): array
     {
         $translationsArr = [];
 
@@ -70,7 +70,7 @@ class TechnicalSkillsService
         return $translationsArr;
     }
 
-    private function mapTechnicalSkills($technicalSkills): array
+    public function mapTechnicalSkills($technicalSkills): array
     {
         $technicalSkillsArr = [];
 

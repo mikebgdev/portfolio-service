@@ -9,11 +9,13 @@
 namespace App\Entity;
 
 use App\Repository\TechnicalSkillsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TechnicalSkillsRepository::class)]
-class TechnicalSkills
+final class TechnicalSkills
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,6 +30,15 @@ class TechnicalSkills
 
     #[ORM\ManyToOne(inversedBy: 'technicalSkills')]
     private ?Categories $category = null;
+
+    /** @var Collection<int, Projects> */
+    #[ORM\ManyToMany(targetEntity: Projects::class, mappedBy: 'skills')]
+    private Collection $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,5 +79,37 @@ class TechnicalSkills
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Projects>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Projects $project): static
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->addTechnicalSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Projects $project): static
+    {
+        if ($this->projects->removeElement($project)) {
+            $project->removeTechnicalSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }

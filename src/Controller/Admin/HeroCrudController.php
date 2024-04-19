@@ -14,7 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class HeroCrudController extends AbstractCrudController
+final class HeroCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

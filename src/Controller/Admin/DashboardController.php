@@ -15,6 +15,7 @@ use App\Entity\Categories;
 use App\Entity\Education;
 use App\Entity\Hero;
 use App\Entity\InterpersonalSkills;
+use App\Entity\Projects;
 use App\Entity\SocialNetworks;
 use App\Entity\TechnicalSkills;
 use App\Entity\WorkExperience;
@@ -23,7 +24,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 
-class DashboardController extends AbstractDashboardController
+final class DashboardController extends AbstractDashboardController
 {
     public function index(): Response
     {
@@ -46,7 +47,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categories::class);
         yield MenuItem::linkToCrud('Technical Skills', 'fas fa-code', TechnicalSkills::class);
         yield MenuItem::linkToCrud('Interpersonal Skills', 'fas fa-handshake', InterpersonalSkills::class);
-        yield MenuItem::linkToCrud('Projects', 'fas fa-table', AboutMe::class);
+        yield MenuItem::linkToCrud('Projects', 'fas fa-table', Projects::class);
         yield MenuItem::linkToCrud('Work Experience', 'fas fa-briefcase', WorkExperience::class);
         yield MenuItem::linkToCrud('Education', 'fas fa-school', Education::class);
         yield MenuItem::linkToCrud('Social Networks', 'fas fa-link', SocialNetworks::class);

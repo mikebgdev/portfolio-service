@@ -17,7 +17,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Entity(repositoryClass: WorkExperienceRepository::class)]
-class WorkExperience implements TranslatableInterface
+final class WorkExperience implements TranslatableInterface
 {
     use TranslatableTrait;
     #[ORM\Id]

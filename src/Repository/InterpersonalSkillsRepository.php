@@ -20,7 +20,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method InterpersonalSkills[]    findAll()
  * @method InterpersonalSkills[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InterpersonalSkillsRepository extends ServiceEntityRepository
+final class InterpersonalSkillsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

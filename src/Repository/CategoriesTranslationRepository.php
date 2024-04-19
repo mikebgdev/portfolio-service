@@ -20,7 +20,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CategoriesTranslation[]    findAll()
  * @method CategoriesTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoriesTranslationRepository extends ServiceEntityRepository
+final class CategoriesTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

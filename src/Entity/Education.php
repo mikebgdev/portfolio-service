@@ -17,7 +17,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Entity(repositoryClass: EducationRepository::class)]
-class Education implements TranslatableInterface
+final class Education implements TranslatableInterface
 {
     use TranslatableTrait;
 

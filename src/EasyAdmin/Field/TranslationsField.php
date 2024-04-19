@@ -14,7 +14,7 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 
-class TranslationsField implements FieldInterface
+final class TranslationsField implements FieldInterface
 {
     use FieldTrait;
 

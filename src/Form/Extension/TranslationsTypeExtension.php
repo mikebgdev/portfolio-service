@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TranslationsTypeExtension extends AbstractTypeExtension
+final class TranslationsTypeExtension extends AbstractTypeExtension
 {
     public static function getExtendedTypes(): iterable
     {

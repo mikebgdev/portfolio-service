@@ -14,7 +14,7 @@ use App\Entity\WorkExperience;
 use App\Entity\WorkExperienceTranslation;
 use Doctrine\ORM\EntityManagerInterface;
 
-class WorkExperienceService
+final class WorkExperienceService
 {
     private EntityManagerInterface $manager;
 
@@ -43,7 +43,7 @@ class WorkExperienceService
         return $workExperienceArr;
     }
 
-    private function mapWorkExperience(WorkExperience $workExperience): array
+    public function mapWorkExperience(WorkExperience $workExperience): array
     {
         $translations = $this->mapTranslations($workExperience->getTranslations());
 
@@ -55,7 +55,7 @@ class WorkExperienceService
         ];
     }
 
-    private function mapTranslations($translations): array
+    public function mapTranslations($translations): array
     {
         $translationsArr = [];
 

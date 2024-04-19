@@ -24,7 +24,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class WorkExperienceCrudController extends AbstractCrudController
+final class WorkExperienceCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

@@ -40,8 +40,6 @@ final class TranslationsConfiguratorTest extends TestCase
         $this->fieldDto->setCustomOption(TranslationsField::OPTION_FIELDS_CONFIG, ['field1', 'field2']);
 
         $this->entityDto = new EntityDto('App\Entity\Categories', new ClassMetadata(Categories::class));
-
-        //        $this->context = $this->createAdminContext();
     }
 
     public function testConstructor(): void

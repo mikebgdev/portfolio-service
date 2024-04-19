@@ -22,7 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method AboutMeTranslation[]    findAll()
  * @method AboutMeTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AboutMeTranslationRepository extends ServiceEntityRepository
+final class AboutMeTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

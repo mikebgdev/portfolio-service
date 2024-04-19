@@ -58,8 +58,8 @@ final class CategoriesTest extends TestCase
 
     public function testPropertiesAreNullable()
     {
-        $aboutMe = new Categories();
+        $categories = new Categories();
 
-        self::assertNull($aboutMe->getId());
+        self::assertNull($categories->getId());
     }
 }

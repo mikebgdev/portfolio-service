@@ -23,7 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class EducationCrudController extends AbstractCrudController
+final class EducationCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

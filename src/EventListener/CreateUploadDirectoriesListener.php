@@ -13,7 +13,7 @@ namespace App\EventListener;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
-class CreateUploadDirectoriesListener
+final class CreateUploadDirectoriesListener
 {
     private ParameterBagInterface $params;
 

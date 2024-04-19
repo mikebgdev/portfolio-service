@@ -22,7 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method WorkExperienceTranslation[]    findAll()
  * @method WorkExperienceTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class WorkExperienceTranslationRepository extends ServiceEntityRepository
+final class WorkExperienceTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

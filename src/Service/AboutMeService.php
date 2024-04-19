@@ -15,7 +15,7 @@ use App\Entity\AboutMeTranslation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class AboutMeService
+final class AboutMeService
 {
     private EntityManagerInterface $manager;
     private ParameterBagInterface $params;

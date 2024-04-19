@@ -14,7 +14,7 @@ use App\Entity\InterpersonalSkills;
 use App\Entity\InterpersonalSkillsTranslation;
 use Doctrine\ORM\EntityManagerInterface;
 
-class InterpersonalSkillsService
+final class InterpersonalSkillsService
 {
     private EntityManagerInterface $manager;
 
@@ -43,7 +43,7 @@ class InterpersonalSkillsService
         return $interpersonalSkillsArr;
     }
 
-    private function mapInterpersonalSkills(InterpersonalSkills $interpersonalSkill): array
+    public function mapInterpersonalSkills(InterpersonalSkills $interpersonalSkill): array
     {
         $translations = $this->mapTranslations($interpersonalSkill->getTranslations());
 
@@ -53,7 +53,7 @@ class InterpersonalSkillsService
         ];
     }
 
-    private function mapTranslations($translations): array
+    public function mapTranslations($translations): array
     {
         $translationsArr = [];
 

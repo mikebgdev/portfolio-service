@@ -14,7 +14,7 @@ use App\Entity\Hero;
 use App\Entity\HeroTranslation;
 use Doctrine\ORM\EntityManagerInterface;
 
-class HeroService
+final class HeroService
 {
     private EntityManagerInterface $manager;
 
@@ -43,7 +43,7 @@ class HeroService
         return $heroItemsArr;
     }
 
-    private function mapWorkExperience(Hero $hero): array
+    public function mapWorkExperience(Hero $hero): array
     {
         $translations = $this->mapTranslations($hero->getTranslations());
 
@@ -52,7 +52,7 @@ class HeroService
         ];
     }
 
-    private function mapTranslations($translations): array
+    public function mapTranslations($translations): array
     {
         $translationsArr = [];
 

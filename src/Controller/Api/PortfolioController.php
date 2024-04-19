@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PortfolioController extends AbstractController
+final class PortfolioController extends AbstractController
 {
     public function getPortfolio(PortfolioService $portfolioService, EntityManagerInterface $entityManager): JsonResponse
     {

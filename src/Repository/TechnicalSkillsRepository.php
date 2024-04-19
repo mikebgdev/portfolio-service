@@ -20,35 +20,10 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method TechnicalSkills[]    findAll()
  * @method TechnicalSkills[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TechnicalSkillsRepository extends ServiceEntityRepository
+final class TechnicalSkillsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TechnicalSkills::class);
     }
-
-    //    /**
-    //     * @return TechnicalSkills[] Returns an array of TechnicalSkills objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?TechnicalSkills
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

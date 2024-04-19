@@ -13,7 +13,7 @@ namespace App\Service;
 use App\Entity\SocialNetworks;
 use Doctrine\ORM\EntityManagerInterface;
 
-class SocialNetworksService
+final class SocialNetworksService
 {
     private EntityManagerInterface $manager;
 
@@ -42,7 +42,7 @@ class SocialNetworksService
         return $socialNetworksArr;
     }
 
-    private function mapSocialNetworks(SocialNetworks $socialNetwork): array
+    public function mapSocialNetworks(SocialNetworks $socialNetwork): array
     {
         return [
             'title' => $socialNetwork->getTitle(),

@@ -14,7 +14,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Entity(repositoryClass: HeroRepository::class)]
-class Hero implements TranslatableInterface
+final class Hero implements TranslatableInterface
 {
     use TranslatableTrait;
     #[ORM\Id]

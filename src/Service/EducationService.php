@@ -14,7 +14,7 @@ use App\Entity\Education;
 use App\Entity\EducationTranslation;
 use Doctrine\ORM\EntityManagerInterface;
 
-class EducationService
+final class EducationService
 {
     private EntityManagerInterface $manager;
 

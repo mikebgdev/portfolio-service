@@ -8,22 +8,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Hero;
+use App\Entity\Projects;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Hero>
+ * @extends ServiceEntityRepository<Projects>
  *
- * @method Hero|null find($id, $lockMode = null, $lockVersion = null)
- * @method Hero|null findOneBy(array $criteria, array $orderBy = null)
- * @method Hero[]    findAll()
- * @method Hero[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Projects|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Projects|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Projects[]    findAll()
+ * @method Projects[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-final class HeroRepository extends ServiceEntityRepository
+class ProjectsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Hero::class);
+        parent::__construct($registry, Projects::class);
     }
 }

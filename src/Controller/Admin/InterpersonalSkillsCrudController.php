@@ -20,7 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class InterpersonalSkillsCrudController extends AbstractCrudController
+final class InterpersonalSkillsCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

@@ -8,37 +8,36 @@
 
 namespace App\Entity;
 
-use App\Repository\InterpersonalSkillsRepository;
+use App\Repository\ProjectsTranslationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-#[ORM\Entity(repositoryClass: InterpersonalSkillsRepository::class)]
-final class InterpersonalSkillsTranslation implements TranslationInterface
+#[ORM\Entity(repositoryClass: ProjectsTranslationRepository::class)]
+final class ProjectsTranslation implements TranslationInterface
 {
     use TranslationTrait;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getDescription(): ?string
     {
-        return $this->title;
+        return $this->description;
     }
 
-    public function setTitle(string $title): static
+    public function setDescription(?string $description): static
     {
-        $this->title = $title;
+        $this->description = $description;
 
         return $this;
     }

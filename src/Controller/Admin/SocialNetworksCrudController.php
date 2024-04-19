@@ -15,7 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
-class SocialNetworksCrudController extends AbstractCrudController
+final class SocialNetworksCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

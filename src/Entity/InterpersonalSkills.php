@@ -15,7 +15,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Entity(repositoryClass: InterpersonalSkillsRepository::class)]
-class InterpersonalSkills implements TranslatableInterface
+final class InterpersonalSkills implements TranslatableInterface
 {
     use TranslatableTrait;
     #[ORM\Id]

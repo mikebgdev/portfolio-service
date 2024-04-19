@@ -18,7 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class TranslationsConfigurator implements FieldConfiguratorInterface
+final class TranslationsConfigurator implements FieldConfiguratorInterface
 {
     public function __construct(private iterable $fieldConfigurators)
     {
