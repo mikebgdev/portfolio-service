@@ -21,8 +21,6 @@ services:
         container_name: php-${PROJECT_NAME}-dev
         build:
             context: .
-            args:
-                - CACHEBUST=$(date +%s)
         restart: unless-stopped
         volumes:
             - php_socket:/var/run/php

@@ -204,7 +204,9 @@ steps:
                 - git reset --hard origin/${DRONE_BRANCH}
                 - git checkout ${DRONE_BRANCH}
                 - git pull origin ${DRONE_BRANCH}
-                - CACHEBUST=$(date +%s) docker compose up -d --build
+                - docker compose build
+                - docker compose down
+                - docker compose up -d --force-recreate
 
     -   name: deployment
         image: appleboy/drone-ssh
@@ -228,4 +230,6 @@ steps:
                 - git reset --hard origin/${DRONE_BRANCH}
                 - git checkout ${DRONE_BRANCH}
                 - git pull origin ${DRONE_BRANCH}
-                - CACHEBUST=$(date +%s) docker compose -f docker-compose.dev.yml up -d --build
+                - docker compose -f docker-compose.dev.yml build
+                - docker compose -f docker-compose.dev.yml down
+                - docker compose -f docker-compose.dev.yml up -d --force-recreate
