@@ -13,14 +13,17 @@ namespace App\Service;
 use App\Entity\AboutMe;
 use App\Entity\AboutMeTranslation;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AboutMeService
 {
     private EntityManagerInterface $manager;
+    private ParameterBagInterface $params;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, ParameterBagInterface $params)
     {
         $this->manager = $manager;
+        $this->params = $params;
     }
 
     /**
@@ -36,18 +39,25 @@ class AboutMeService
 
         $translations = $this->mapTranslations($aboutMe->getTranslations());
 
+        $photo = null === $aboutMe->getPhotoPath() ?
+            null :
+            $this->params->get('upload_photo_directory').'/'.$aboutMe->getPhotoPath();
+        $curriculum = null === $aboutMe->getCurriculumPath() ?
+            null :
+            $this->params->get('upload_curriculum_directory').'/'.$aboutMe->getCurriculumPath();
+
         return [
             'name' => $aboutMe->getName(),
             'age' => $aboutMe->getAge(),
             'email' => $aboutMe->getEmail(),
             'location' => $aboutMe->getLocation(),
-            'photo' => $aboutMe->getPhotoPath(),
-            'curriculum' => $aboutMe->getCurriculumPath(),
+            'photo' => $photo,
+            'curriculum' => $curriculum,
             'translations' => $translations,
         ];
     }
 
-    private function mapTranslations($translations): array
+    public function mapTranslations($translations): array
     {
         $translationsArr = [];
 

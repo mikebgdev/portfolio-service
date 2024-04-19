@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Entity(repositoryClass: CategoriesRepository::class)]
 class Categories implements TranslatableInterface
@@ -67,11 +66,6 @@ class Categories implements TranslatableInterface
         }
 
         return $this;
-    }
-
-    public function __get($name)
-    {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $name);
     }
 
     public function getTitleTranslation()

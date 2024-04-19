@@ -8,40 +8,47 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Categories;
 use App\Entity\TechnicalSkills;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @covers \App\Entity\TechnicalSkills
- */
-class TechnicalSkillsTest extends TestCase
+#[covers(TechnicalSkills::class)]
+final class TechnicalSkillsTest extends TestCase
 {
-    public function testId(): void
+    public function testPropertiesAreNullable()
     {
-        $technicalSkills = new TechnicalSkills();
+        $socialNetwork = new TechnicalSkills();
 
-        self::assertNull($technicalSkills->getId());
+        self::assertNull($socialNetwork->getId());
+        self::assertNull($socialNetwork->getTitle());
+        self::assertNull($socialNetwork->getSvg());
     }
 
-    public function testTitle(): void
+    public function testGetSetTitle()
     {
-        $technicalSkills = new TechnicalSkills();
-        $title = 'Test Title';
+        $technicalSkill = new TechnicalSkills();
 
-        $technicalSkills->setTitle($title);
+        $technicalSkill->setTitle('PHP');
 
-        self::assertEquals($title, $technicalSkills->getTitle());
+        self::assertEquals('PHP', $technicalSkill->getTitle());
     }
 
-    public function testSvg(): void
+    public function testGetSetSvg()
     {
-        $technicalSkills = new TechnicalSkills();
-        $svg = '<svg>...</svg>';
+        $technicalSkill = new TechnicalSkills();
 
-        $technicalSkills->setSvg($svg);
+        $technicalSkill->setSvg('<svg>...</svg>');
 
-        self::assertEquals($svg, $technicalSkills->getSvg());
+        self::assertEquals('<svg>...</svg>', $technicalSkill->getSvg());
+    }
+
+    public function testGetSetCategory()
+    {
+        $technicalSkill = new TechnicalSkills();
+        $category = new Categories();
+
+        $technicalSkill->setCategory($category);
+
+        self::assertEquals($category, $technicalSkill->getCategory());
     }
 }

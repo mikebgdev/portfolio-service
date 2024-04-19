@@ -15,7 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Entity(repositoryClass: EducationRepository::class)]
 class Education implements TranslatableInterface
@@ -59,11 +58,6 @@ class Education implements TranslatableInterface
         $this->endDate = $endDate;
 
         return $this;
-    }
-
-    public function __get($name)
-    {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $name);
     }
 
     public function getTitleTranslation(): string

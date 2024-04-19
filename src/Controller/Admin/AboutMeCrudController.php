@@ -21,9 +21,17 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AboutMeCrudController extends AbstractCrudController
 {
+    private ParameterBagInterface $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+
     public static function getEntityFqcn(): string
     {
         return AboutMe::class;
@@ -42,6 +50,8 @@ class AboutMeCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $pathDirPhoto = $this->params->get('upload_photo_directory');
+
         yield FormField::addTab('General');
 
         yield FormField::addFieldset('Details');
@@ -60,8 +70,8 @@ class AboutMeCrudController extends AbstractCrudController
 
         yield FormField::addFieldset('Files');
         yield ImageField::new('photoPath')
-            ->setUploadDir('/public/uploads/photos')
-            ->setBasePath('/uploads/photos')
+            ->setUploadDir('/public'.$pathDirPhoto)
+            ->setBasePath($pathDirPhoto)
             ->setLabel('Photo')
             ->setColumns(6);
         yield TextField::new('curriculumPath')

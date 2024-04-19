@@ -43,7 +43,7 @@ class EducationService
         return $educationsArr;
     }
 
-    private function mapWorkExperience(Education $education): array
+    public function mapWorkExperience(Education $education): array
     {
         $translations = $this->mapTranslations($education->getTranslations());
 
@@ -54,7 +54,7 @@ class EducationService
         ];
     }
 
-    private function mapTranslations($translations): array
+    public function mapTranslations($translations): array
     {
         $translationsArr = [];
 

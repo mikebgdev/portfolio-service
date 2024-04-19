@@ -13,6 +13,7 @@ namespace App\Service;
 class PortfolioService
 {
     private AboutMeService $aboutMeService;
+    private HeroService $heroService;
     private TechnicalSkillsService $technicalSkillsService;
     private InterpersonalSkillsService $interpersonalSkillsService;
     private ProjectsService $projectsService;
@@ -22,6 +23,7 @@ class PortfolioService
 
     public function __construct(
         AboutMeService $aboutMeService,
+        HeroService $heroService,
         TechnicalSkillsService $technicalSkillsService,
         InterpersonalSkillsService $interpersonalSkillsService,
         ProjectsService $projectsService,
@@ -30,6 +32,7 @@ class PortfolioService
         SocialNetworksService $socialNetworksService
     ) {
         $this->aboutMeService = $aboutMeService;
+        $this->heroService = $heroService;
         $this->technicalSkillsService = $technicalSkillsService;
         $this->interpersonalSkillsService = $interpersonalSkillsService;
         $this->projectsService = $projectsService;
@@ -45,6 +48,7 @@ class PortfolioService
     {
         return [
             'aboutMe' => $this->aboutMeService->buildAboutMe(),
+            'hero' => $this->heroService->buildHero(),
             'technicalSkills' => $this->technicalSkillsService->buildTechnicalSkills(),
             'interpersonalSkills' => $this->interpersonalSkillsService->buildInterpersonalSkills(),
             'projects' => $this->projectsService->buildProjects(),

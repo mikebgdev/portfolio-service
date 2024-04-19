@@ -13,6 +13,7 @@ namespace App\Controller\Admin;
 use App\Entity\AboutMe;
 use App\Entity\Categories;
 use App\Entity\Education;
+use App\Entity\Hero;
 use App\Entity\InterpersonalSkills;
 use App\Entity\SocialNetworks;
 use App\Entity\TechnicalSkills;
@@ -41,6 +42,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('Configuration');
         yield MenuItem::linkToCrud('AboutMe', 'fas fa-user', AboutMe::class);
+        yield MenuItem::linkToCrud('Hero', 'fas fa-clipboard-list', Hero::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categories::class);
         yield MenuItem::linkToCrud('Technical Skills', 'fas fa-code', TechnicalSkills::class);
         yield MenuItem::linkToCrud('Interpersonal Skills', 'fas fa-handshake', InterpersonalSkills::class);

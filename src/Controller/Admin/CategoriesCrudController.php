@@ -58,8 +58,9 @@ class CategoriesCrudController extends AbstractCrudController
         FilterCollection $filters
     ): QueryBuilder {
         $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        $qb->leftJoin('entity.translations', 'et')
-            ->addSelect('et');
+
+        $qb->leftJoin('entity.translations', 'et');
+        $qb->addSelect('et');
 
         return $qb;
     }

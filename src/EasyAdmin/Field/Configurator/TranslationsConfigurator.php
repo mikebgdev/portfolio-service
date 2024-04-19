@@ -31,45 +31,56 @@ class TranslationsConfigurator implements FieldConfiguratorInterface
 
     public function configure(FieldDto $field, EntityDto $entityDto, AdminContext $context): void
     {
-        $formTypeOptionsFields = [];
+        $formTypeOptionsFields = $this->buildFormTypeOptionsFields($field, $entityDto, $context);
 
-        $fieldsCollection = FieldCollection::new(
-            (array) $field->getCustomOption(TranslationsField::OPTION_FIELDS_CONFIG)
-        );
-
-        foreach ($fieldsCollection as $dto) {
-            /**
-             * @var FieldDto $dto
-             */
-
-            // run field configurator manually as translatable fields are not returned/yielded from configureFields()
-            foreach ($this->fieldConfigurators as $configurator) {
-                if (!$configurator->supports($dto, $entityDto)) {
-                    continue;
-                }
-
-                $configurator->configure($dto, $entityDto, $context);
-            }
-
-            foreach ($dto->getFormThemes() as $formThemePath) {
-                $context?->getCrud()?->addFormTheme($formThemePath);
-            }
-
-            // add translatable fields assets
-            $context->getAssets()->mergeWith($dto->getAssets());
-
-            $dto->setFormTypeOption('field_type', $dto->getFormType());
-            $formTypeOptionsFields[$dto->getProperty()] = $dto->getFormTypeOptions();
-        }
+        $this->configureFormThemesAndAssets($field, $context);
 
         $field->setFormTypeOptions(
             [
-                'ea_fields' => $fieldsCollection,
+                'ea_fields' => $this->buildFieldsCollection($field),
                 'fields' => $formTypeOptionsFields,
                 'constraints' => [
                     new Valid(),
                 ],
             ]
         );
+    }
+
+    private function buildFormTypeOptionsFields(FieldDto $field, EntityDto $entityDto, AdminContext $context): array
+    {
+        $formTypeOptionsFields = [];
+        $fieldsCollection = $this->buildFieldsCollection($field);
+
+        foreach ($fieldsCollection as $dto) {
+            /**
+             * @var FieldDto $dto
+             */
+            foreach ($this->fieldConfigurators as $configurator) {
+                if ($configurator->supports($dto, $entityDto)) {
+                    $configurator->configure($dto, $entityDto, $context);
+                }
+            }
+
+            $this->configureFormThemesAndAssets($dto, $context);
+
+            $dto->setFormTypeOption('field_type', $dto->getFormType());
+            $formTypeOptionsFields[$dto->getProperty()] = $dto->getFormTypeOptions();
+        }
+
+        return $formTypeOptionsFields;
+    }
+
+    public function buildFieldsCollection(FieldDto $field): FieldCollection
+    {
+        return FieldCollection::new((array) $field->getCustomOption(TranslationsField::OPTION_FIELDS_CONFIG));
+    }
+
+    private function configureFormThemesAndAssets(FieldDto $field, AdminContext $context): void
+    {
+        foreach ($field->getFormThemes() as $formThemePath) {
+            $context?->getCrud()?->addFormTheme($formThemePath);
+        }
+
+        $context->getAssets()->mergeWith($field->getAssets());
     }
 }

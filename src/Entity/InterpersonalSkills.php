@@ -13,7 +13,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Entity(repositoryClass: InterpersonalSkillsRepository::class)]
 class InterpersonalSkills implements TranslatableInterface
@@ -42,11 +41,6 @@ class InterpersonalSkills implements TranslatableInterface
         $this->svg = $svg;
 
         return $this;
-    }
-
-    public function __get($name)
-    {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $name);
     }
 
     public function getTitleTranslation()

@@ -14,7 +14,6 @@ use App\Repository\AboutMeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Entity(repositoryClass: AboutMeRepository::class)]
 class AboutMe implements TranslatableInterface
@@ -119,11 +118,6 @@ class AboutMe implements TranslatableInterface
         $this->curriculumPath = $curriculumPath;
 
         return $this;
-    }
-
-    public function __get($name)
-    {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $name);
     }
 
     public function toString(): string
