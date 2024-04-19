@@ -3,7 +3,7 @@ version: '3.8'
 services:
     nginx:
         image: nginx:1.25-alpine
-        container_name: nginx-${PROJECT_NAME}-dev
+        container_name: nginx-${DRONE_REPO_NAME}-dev
         restart: unless-stopped
         ports:
             - ${HTTP_PORT_DEV}:80
@@ -18,7 +18,7 @@ services:
 
 
     php:
-        container_name: php-${PROJECT_NAME}-dev
+        container_name: php-${DRONE_REPO_NAME}-dev
         build:
             context: .
             args:
@@ -35,4 +35,4 @@ volumes:
 
 networks:
     symfony:
-        name: symfony-${PROJECT_NAME}-dev
+        name: symfony-${DRONE_REPO_NAME}-dev

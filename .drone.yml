@@ -19,15 +19,15 @@ steps:
     -   name: clone
         image: drone/git
         commands:
-            - git clone https://$GITHUB_TOKEN@github.com/$DRONE_REPO ./${PROJECT_NAME}
-            - cd ./${PROJECT_NAME}
+            - git clone https://$GITHUB_TOKEN@github.com/$DRONE_REPO ./${DRONE_REPO_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - git checkout $DRONE_COMMIT
 
 
     -   name: composer-install-dev
         image: composer:latest
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - export APP_ENV=dev
             - composer install --prefer-dist
         depends_on:
@@ -38,7 +38,7 @@ steps:
         group: dependencies
         image: composer:latest
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - composer outdated
         depends_on:
             - composer-install-dev
@@ -48,7 +48,7 @@ steps:
         group: dependencies
         image: composer:latest
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - curl -sS https://get.symfony.com/cli/installer | bash
             - mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
             - symfony check:security
@@ -59,7 +59,7 @@ steps:
     -   name: unit-tests
         image: php:8.2
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - curl -L https://phar.phpunit.de/phpunit.phar -o phpunit
             - chmod +x phpunit
             - mv phpunit /usr/local/bin/phpunit
@@ -73,7 +73,7 @@ steps:
         group: coding-standards
         image: php:8.2
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - curl -L https://cs.symfony.com/download/php-cs-fixer-v3.phar -o php-cs-fixer
             - chmod a+x php-cs-fixer
             - ./php-cs-fixer fix --dry-run --diff --stop-on-violation --config=.php-cs-fixer.dist.php
@@ -99,7 +99,7 @@ steps:
         group: quality-tools
         image: php:8.2
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd
             - chmod +x phpcpd
             - ./phpcpd src
@@ -115,7 +115,7 @@ steps:
         group: quality-tools
         image: php:8.2
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - curl -L https://phar.phpunit.de/phploc.phar -o phploc
             - chmod +x phploc
             - ./phploc src
@@ -131,7 +131,7 @@ steps:
         group: quality-tools
         image: php:8.2
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - vendor/bin/phpstan analyse src tests
         depends_on:
             - php-fixer
@@ -144,7 +144,7 @@ steps:
     -   name: composer-install-prod-push
         image: composer:latest
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - export APP_ENV=prod
             - composer install --prefer-dist --no-dev
         depends_on:
@@ -158,7 +158,7 @@ steps:
     -   name: composer-install-prod-pull
         image: composer:latest
         commands:
-            - cd ./${PROJECT_NAME}
+            - cd ./${DRONE_REPO_NAME}
             - export APP_ENV=prod
             - composer install --prefer-dist --no-dev
         depends_on:
@@ -182,6 +182,9 @@ trigger:
 steps:
     -   name: production
         image: appleboy/drone-ssh
+        environment:
+            HTTP_PORT:
+                from_secret: HTTP_PORT
         when:
             target:
                 - production
@@ -208,6 +211,9 @@ steps:
 
     -   name: deployment
         image: appleboy/drone-ssh
+        environment:
+            HTTP_PORT_DEV:
+                from_secret: HTTP_PORT_DEV
         when:
             target:
                 - deployment
