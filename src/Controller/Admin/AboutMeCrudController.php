@@ -80,7 +80,7 @@ final class AboutMeCrudController extends AbstractCrudController
             ->setColumns(6);
 
         yield FormField::addTab('Translations')
-            ->setIcon('language');
+            ->setIcon('fa fa-language');
         yield TranslationsField::new('translations')
             ->addTranslatableField(
                 TextField::new('nationality')
